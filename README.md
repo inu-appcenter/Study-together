@@ -1,5 +1,5 @@
 # Study-together
-- Tech stack: Node.js, MongoDn
+- Tech stack: Node.js, MongoDB
 - [Notion](https://www.notion.so/cdbe44135c3f4e96b13d4df184ea92c0)
 
 ## 소통을 위한 커밋 규칙
@@ -13,6 +13,13 @@
 Ex) feat: 로그인 기능 추가
 
 ## 설계 구조(예시 이미지)
+/index.js
+/routes.js
+/controller
+/model
+  /user.js (유저)
+  /post.js (스터디 글)
+
 - routes: API 목록
 ![image](https://user-images.githubusercontent.com/67142421/184523799-481ce73e-2e16-44de-bae4-63858f50e617.png)
 - controller: API의 알고리즘<br>
