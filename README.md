@@ -8,4 +8,4 @@
 - refactor: 코드 리펙토링
 - chore: 기타 변경
 
-Ex) fet: 로그인 기능 추가 
+Ex) feat: 로그인 기능 추가 
