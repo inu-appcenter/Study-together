@@ -1,8 +1,10 @@
 # Study-together
-- FEAT : 새로운 기능의 추가
-- FIX: 버그 수정
-- DOCS: 문서 수정
-- STYLE: 스타일 관련 기능(코드 포맷팅, 세미콜론 누락, 코드 자체의 변경이 없는 경우)
-- REFACTOR: 코드 리펙토링
 
-Ex) FEAT: 로그인 기능 추가 
+## 소통을 위한 커밋 규칙
+- feat: 새로운 기능의 추가
+- fix: 버그 수정
+- docs: 문서 수정
+- style: 코드의 구조는 변화없이 스타일 변경(Ex: 변수 이름을 loginUser대신에 login_user로 바꿨을때)
+- refactor: 코드 리펙토링
+
+Ex) fet: 로그인 기능 추가 
