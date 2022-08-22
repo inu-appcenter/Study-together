@@ -33,6 +33,7 @@ const upload = multer({
 router.get('/naver_login', controller.naver_login);
 router.get('/auth/naver/callback', controller.auth_naver_callback)
 router.get('/get_member/:access_token', controller.get_member)
+router.get('/refresh_access_token/:refresh_token', controller.refresh_access_token)
 router.post('/sign_up', upload.single('img'), controller.sign_up)
 
 

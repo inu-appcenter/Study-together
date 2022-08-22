@@ -9,6 +9,7 @@ import User from '../models/User.js'
 
 //네이버 OAuth
 const client_id = 'hSAxIZYqNtrSumDgyWQD';
+const client_secret = 'JSau1N85kI';
 const state = "RAMDOM_STATE";
 export const naver_login = async (req, res) => { // 네이버로 login
   const redirect_URL = encodeURI("http://localhost:4000/auth/naver/callback");
@@ -18,7 +19,6 @@ export const naver_login = async (req, res) => { // 네이버로 login
 }
 
 export const auth_naver_callback = async (req, res) => { // 로그인 완료시 callback
-  const client_secret = 'JSau1N85kI';
   const code = req.query.code;
   const api_url = 'https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id='
    + client_id + '&client_secret=' + client_secret + '&code=' + code + '&state=' + state;
@@ -28,9 +28,13 @@ export const auth_naver_callback = async (req, res) => { // 로그인 완료시 
   }
   request.get(options, (error, response, body)=>{
     if (!error && response.statusCode == 200) {
+      const parsed_token=JSON.parse(body)
       res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
-      //res.end(`<script>localStorage.setItem('token', '${body}');</script>`) // 토큰 저장
-      res.end(`<script>localStorage.setItem('token', '${body}'); location.href="http://localhost:4000/test";</script>`) // 테스트용
+      // res.end(`<script>localStorage.setItem('access_token', '${parsed_token.access_token}'); // 토큰 저장
+      // localStorage.setItem('refresh_token', '${parsed_token.refresh_token}');</script>`)
+      res.end(`<script>localStorage.setItem('access_token', '${parsed_token.access_token}');
+      localStorage.setItem('refresh_token', '${parsed_token.refresh_token}');
+      location.href="http://localhost:4000/test";</script>`) // 테스트용
     } else {
       res.status(response.statusCode).end();
       console.log('error = ' + response.statusCode);
@@ -60,6 +64,21 @@ export const get_member = async(req, res)=>{ //
       console.log('error = ' + response.statusCode);
     }
   })
+}
+
+export const refresh_access_token = async(req, res)=>{
+  const api_url = 'https://nid.naver.com/oauth2.0/token?grant_type=refresh_token&client_id='
+   + client_id + '&client_secret=' + client_secret + '&refresh_token=' + req.params.refresh_token;
+
+   request.get(api_url, (error, response, body)=>{
+    if (!error && response.statusCode == 200) {
+      res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
+      res.end(JSON.parse(body).access_token)
+    } else {
+      res.status(response.statusCode).end();
+      console.log('error = ' + response.statusCode);
+    }
+   })
 }
 //---
 
