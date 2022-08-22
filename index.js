@@ -1,10 +1,9 @@
+// import { createRequire } from "module";
+// const require = createRequire(import.meta.url);
 import path from 'path'
 import {fileURLToPath} from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
-const cors = require('cors');
-//import cors from 'cors'
+import cors from 'cors'
 
 import express from 'express'
 const app = express();

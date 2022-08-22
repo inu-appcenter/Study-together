@@ -1,12 +1,12 @@
 import path from 'path'
 import {fileURLToPath} from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
+
+import * as controller from "../controller/controller.js"
+import * as naver_OAuth from "../controller/naver_OAuth.js"
 
 import express from 'express'
 export const router=express.Router()
-import * as controller from "../controller/controller.js"
 import multer from 'multer' // For image uploading
 import fs from 'fs' // To delete files
 
@@ -30,10 +30,10 @@ const upload = multer({
     },
 })
 
-router.get('/naver_login', controller.naver_login);
-router.get('/auth/naver/callback', controller.auth_naver_callback)
-router.post('/get_member', controller.get_member)
-router.post('/refresh_access_token', controller.refresh_access_token)
+router.get('/naver_login', naver_OAuth.naver_login);
+router.get('/auth/naver/callback', naver_OAuth.auth_naver_callback)
+router.post('/get_member', naver_OAuth.get_member)
+router.post('/refresh_access_token', naver_OAuth.refresh_access_token)
 router.post('/sign_up', upload.single('img'), controller.sign_up)
 
 
