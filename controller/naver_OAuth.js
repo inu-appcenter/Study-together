@@ -9,14 +9,14 @@ const client_id = 'hSAxIZYqNtrSumDgyWQD';
 const client_secret = 'JSau1N85kI';
 const state = "RAMDOM_STATE";
 
-export const naver_login = async (req, res) => { // 네이버로 login
-  const redirect_URL = encodeURI("http://localhost:4000/auth/naver/callback");
+export const login = async (req, res) => { // 네이버로 login
+  const redirect_URL ="http://localhost:4000/naver/OAuth/callback";
   const login_URL = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=' + client_id + '&redirect_uri=' + redirect_URL + '&state=' + state;
   res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
   res.end(login_URL)
 }
 
-export const auth_naver_callback = async (req, res) => { // 네이버 로그인 완료시 callback
+export const callback = async (req, res) => { // 네이버 로그인 완료시 callback
   const code = req.query.code;
   const api_url = 'https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id='
    + client_id + '&client_secret=' + client_secret + '&code=' + code + '&state=' + state;

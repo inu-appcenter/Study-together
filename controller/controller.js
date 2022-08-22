@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt'
 import User from '../models/User.js'
 
 export const sign_up = async(req, res)=>{
-  console.log(req.body)
+  //console.log(req.body)
   const newUser = new User({ // New document
     username: req.body.username,
     password: req.body.password? bcrypt.hashSync(req.body.password, 10): '', // Encryption

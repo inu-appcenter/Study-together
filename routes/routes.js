@@ -30,10 +30,10 @@ const upload = multer({
     },
 })
 
-router.get('/naver_login', naver_OAuth.naver_login);
-router.get('/auth/naver/callback', naver_OAuth.auth_naver_callback)
-router.post('/get_member', naver_OAuth.get_member)
-router.post('/refresh_access_token', naver_OAuth.refresh_access_token)
+router.get('/naver_OAuth/login', naver_OAuth.login);
+router.get('/naver/OAuth/callback', naver_OAuth.callback)
+router.post('/naver_OAuth/get_member', naver_OAuth.get_member)
+router.post('/naver_OAuth/refresh_access_token', naver_OAuth.refresh_access_token)
 router.post('/sign_up', upload.single('img'), controller.sign_up)
 
 
