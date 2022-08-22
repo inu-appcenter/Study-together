@@ -32,8 +32,8 @@ const upload = multer({
 
 router.get('/naver_login', controller.naver_login);
 router.get('/auth/naver/callback', controller.auth_naver_callback)
-router.get('/get_member/:access_token', controller.get_member)
-router.get('/refresh_access_token/:refresh_token', controller.refresh_access_token)
+router.post('/get_member', controller.get_member)
+router.post('/refresh_access_token', controller.refresh_access_token)
 router.post('/sign_up', upload.single('img'), controller.sign_up)
 
 
@@ -41,7 +41,7 @@ router.get('/test', (req, res)=>{ // 테스트용
   res.sendFile(path.join(__dirname, '../client/test.html'))
 })
 router.get('/*', function(req, res) { // 테스트용
-    res.sendFile(path.join(__dirname, '../client/index.html'))
+  res.sendFile(path.join(__dirname, '../client/index.html'))
 })
 
 export default router
