@@ -3,7 +3,6 @@ import {fileURLToPath} from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
-const cors = require('cors');
 
 import express from 'express'
 export const router=express.Router()
@@ -32,12 +31,15 @@ const upload = multer({
 })
 
 router.get('/naver_login', controller.naver_login);
-router.get('/auth/naver/callback', cors(), controller.auth_naver_callback)
-router.get('/get_member/:access_token', cors(), controller.get_member)
-router.get('/test', controller.test)
+router.get('/auth/naver/callback', controller.auth_naver_callback)
+router.get('/get_member/:access_token', controller.get_member)
 router.post('/sign_up', upload.single('img'), controller.sign_up)
 
-router.get('/*', function(req, res) { // React router
+
+router.get('/test', (req, res)=>{ // 테스트용
+  res.sendFile(path.join(__dirname, '../client/test.html'))
+})
+router.get('/*', function(req, res) { // 테스트용
     res.sendFile(path.join(__dirname, '../client/index.html'))
 })
 

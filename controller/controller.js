@@ -13,7 +13,8 @@ const state = "RAMDOM_STATE";
 export const naver_login = async (req, res) => { // 네이버로 login
   const redirect_URL = encodeURI("http://localhost:4000/auth/naver/callback");
   const login_URL = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=' + client_id + '&redirect_uri=' + redirect_URL + '&state=' + state;
-  res.status(200).json({address: login_URL})
+  res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
+  res.end(login_URL)
 }
 
 export const auth_naver_callback = async (req, res) => { // 로그인 완료시 callback
@@ -28,8 +29,8 @@ export const auth_naver_callback = async (req, res) => { // 로그인 완료시 
   request.get(options, (error, response, body)=>{
     if (!error && response.statusCode == 200) {
       res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
-      res.end(`<script>localStorage.setItem('token', '${body}');</script>`) // 토큰 저장
-      //res.end(`<script>localStorage.setItem('token', '${body}'); location.href="http://localhost:4000/test";</script>`) // 테스트용
+      //res.end(`<script>localStorage.setItem('token', '${body}');</script>`) // 토큰 저장
+      res.end(`<script>localStorage.setItem('token', '${body}'); location.href="http://localhost:4000/test";</script>`) // 테스트용
     } else {
       res.status(response.statusCode).end();
       console.log('error = ' + response.statusCode);
@@ -52,7 +53,7 @@ export const get_member = async(req, res)=>{ //
           return
         }
         
-        res.end(JSON.stringify({registered: "Yes", user: User})) // 회원이면 회원정보 보내기
+        res.end(JSON.stringify({registered: "Yes", user: user})) // 회원이면 회원정보 보내기
       })
     } else {
       res.status(response.statusCode).end();
@@ -66,7 +67,7 @@ export const sign_up = async(req, res)=>{
   console.log(req.body)
   const newUser = new User({ // New document
     username: req.body.username,
-    password: bcrypt.hashSync(req.body.password, 10), // Encryption
+    password: req.body.password? bcrypt.hashSync(req.body.password, 10): '', // Encryption
     name: req.body.name,
     nickname: req.body.nickname,
     email: req.body.email,
@@ -83,9 +84,4 @@ export const sign_up = async(req, res)=>{
 
     return res.status(200).json({title: 'User successfully added'})
   })
-}
-
-
-export const test = async(req, res)=>{ // 테스트 용
-  res.sendFile(path.join(__dirname, '../client/test.html'))
 }
