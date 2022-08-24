@@ -14,7 +14,7 @@ import fs from 'fs' // To delete files
 const storage = multer.diskStorage({
     // destination of file
     destination: function (req, file, callback) {
-      callback(null, './uploads/images');
+      callback(null, path.join(__dirname, '../uploads/images'));
     },
   
     // decide filename

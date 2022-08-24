@@ -12,8 +12,9 @@ export const sign_up = async(req, res)=>{
     gender: req.body.gender,
     birthday: req.body.birthday,
     interest: req.body.interest,
-    img: req.file? req.file.filename: ''
+    img: req.file? '/uploads/images/'+req.file.filename: ''
   });
+  console.log(req.body.img)
 
   newUser.save(err => {
     if (err) { // Duplicate not allowed

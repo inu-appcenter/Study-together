@@ -13,7 +13,7 @@ import router from "./routes/routes.js"
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use('/uploads/images', express.static(path.join(__dirname,'/uploads/images')))
+app.use('uploads/images', express.static(path.join(__dirname,'uploads/images')))
 app.use('/', router)
 
 // MongoDB connection

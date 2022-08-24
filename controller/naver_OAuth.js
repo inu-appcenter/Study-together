@@ -28,11 +28,9 @@ export const callback = async (req, res) => { // 네이버 로그인 완료시 c
     if (!error && response.statusCode == 200) {
       const parsed_token=JSON.parse(body)
       res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
-      // res.end(`<script>localStorage.setItem('access_token', '${parsed_token.access_token}'); // 토큰 저장
-      // localStorage.setItem('refresh_token', '${parsed_token.refresh_token}');</script>`)
-      res.end(`<script>localStorage.setItem('access_token', '${parsed_token.access_token}');
-      localStorage.setItem('refresh_token', '${parsed_token.refresh_token}');
-      location.href="http://localhost:4000/test";</script>`) // 테스트용
+      res.end(`<script>localStorage.setItem('access_token', '${parsed_token.access_token}'); // 토큰 저장
+      localStorage.setItem('refresh_token', '${parsed_token.refresh_token}');</script>`)
+      // location.href="http://localhost:4000/test";</script>`) // 테스트용
     } else {
       res.status(response.statusCode).end();
       console.log('error = ' + response.statusCode);
