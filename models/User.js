@@ -12,6 +12,7 @@ const userSchema = new Schema({
   email: String,
   gender: String,
   birthday: String,
+  interest: String,
   img: String,
 })
 

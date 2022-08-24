@@ -11,8 +11,8 @@ export const sign_up = async(req, res)=>{
     email: req.body.email,
     gender: req.body.gender,
     birthday: req.body.birthday,
-    //img: req.body.profileImg!==''? req.file.filename : ''
-    img: ''
+    interest: req.body.interest,
+    img: req.file? req.file.filename: ''
   });
 
   newUser.save(err => {
