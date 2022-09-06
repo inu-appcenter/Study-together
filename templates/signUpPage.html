@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="content-type" content="application/json; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-type" content="text/html">
   </head>
 
   <body>
-    <form action="/auth/signup" method="POST">
+    <form action="/auth/signup" method="POST" enctype="multipart/form-data">
       <fieldset>
           <legend>회원가입</legend>
           아이디 : <input type="text" name="username"  /> <br />
@@ -13,6 +14,7 @@
           나이 : <input type="number" name="age" /> <br/>
           닉네임 : <input type="text" name="nickname"/><br/>
           성별 : <input type="text" name="gender" /><br/>
+          사진 : <input type="file" name="uploadFile"><br/>
           <input type="submit" value="sign up">
       </fieldset>
   </form>

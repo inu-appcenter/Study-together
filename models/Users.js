@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
   age : Number,
   nickname : String,
   gender : String,
+  img: String
 });
 
 const User = mongoose.model('UserList', userSchema);

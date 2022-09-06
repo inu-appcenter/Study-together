@@ -2,8 +2,11 @@ import User from '../models/Users.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
+import path from 'path';
 
 dotenv.config();
+
+const __dirname = path.resolve();
 
 const jwtExpiresInDays = '2d'; // jwt 만기일
 const bcryptSaltRounds = 12; // Bcrypt salt 지정값
@@ -16,6 +19,7 @@ export async function signup(req, res){
   
   const hashedPw = bcrypt.hashSync(req.body.password, bcryptSaltRounds); // Encryption
 
+  console.log(req.file);
   // 새로운 유저를 생성
   const newUser = new User({
     username: req.body.username,
@@ -23,6 +27,7 @@ export async function signup(req, res){
     age: req.body.age,
     nickname: req.body.nickname,
     gender: req.body.gender,
+    img: req.file.filename
   });
 
   console.log(newUser);
@@ -59,6 +64,15 @@ export async function getInfo(req, res){
   }
   // 위에 기술한 것과 마찬가지로, req.token 또한 미들웨어에서 지정해줬기 때문에 이용할 수 있다!
   res.status(200).json({token: req.token, username: user.username});
+}
+
+export async function getProfileImage(req, res){
+  const user = await User.findOne({_id: req.decoded._id});
+  if (!user){
+    return res.status(404).json({message: 'User not found!'});
+  }
+
+  return await res.status(200).sendFile(__dirname + `/uploads/${user.img}`);
 }
 
 function createJwtToken(id){
