@@ -21,12 +21,16 @@ export async function signup(req, res){
 
   console.log(req.file);
   // 새로운 유저를 생성
+  // 영식님 코드 참고해서 유저 모델 업데이트하고, 회원 정보 모델 정보 받아오는 코드 수정할 것! <- 구현하면 지우기!!!!
+  // 지역 및 관심사 추가할 것
   const newUser = new User({
     username: req.body.username,
     password: hashedPw,
     age: req.body.age,
     nickname: req.body.nickname,
     gender: req.body.gender,
+    location: req.body.location,
+    interest: req.body.interest,
     img: req.file.filename
   });
 
@@ -63,7 +67,7 @@ export async function getInfo(req, res){
     return res.status(404).json({message: 'User not found'});
   }
   // 위에 기술한 것과 마찬가지로, req.token 또한 미들웨어에서 지정해줬기 때문에 이용할 수 있다!
-  res.status(200).json({token: req.token, username: user.username});
+  res.status(200).json({token: req.token, user: user});
 }
 
 export async function getProfileImage(req, res){
@@ -78,4 +82,3 @@ export async function getProfileImage(req, res){
 function createJwtToken(id){
   return jwt.sign({_id: id}, process.env.SECRET_KEY, {expiresIn: jwtExpiresInDays});
 }
-

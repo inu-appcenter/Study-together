@@ -31,16 +31,15 @@ router.get('/signup', (req, res, next)=>{
 })
 router.post('/signup', upload.single('uploadFile'), authController.signup);
 
-
-
 router.get('/login', (req, res, next)=>{
   res.status(200).sendFile(__dirname + '/templates/loginPage.html');
 })
 router.post('/login', authController.login);
 
-
-
 router.get('/me', isAuth, authController.getInfo);
 
 router.get('/myImage', isAuth, authController.getProfileImage);
+
+// 필요한 것, 유저 정보 수정 by using patch method!
+
 export default router;
