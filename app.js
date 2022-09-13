@@ -6,7 +6,7 @@ import path from 'path';
 
 import testRouter from './routes/test.js';
 import authRouter from './routes/auth.js';
-
+import meetingRouter from './routes/meeting.js';
 
 const app = express();
 const __dirname = path.resolve();
@@ -16,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use('/auth', authRouter);
+app.use('/meet', meetingRouter);
 
 app.get('/', (req, res, next)=>{
   res.status(200).sendFile(__dirname+'/templates/index.html');

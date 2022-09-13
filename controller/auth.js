@@ -26,12 +26,14 @@ export async function signup(req, res){
   const newUser = new User({
     username: req.body.username,
     password: hashedPw,
-    age: req.body.age,
+    name: req.body.name,
     nickname: req.body.nickname,
+    email: req.body.email,
     gender: req.body.gender,
-    location: req.body.location,
+    birthday: req.body.birthday,
     interest: req.body.interest,
-    img: req.file.filename
+    location: req.body.location,
+    img: req.file.filename? req.file.filename:`${__dirname + '/uploads/mimo.png'}`
   });
 
   console.log(newUser);
@@ -46,12 +48,12 @@ export async function login(req, res){
   // 유저의 아이디가 존재할 경우 추출해내는 구문
   const user = await User.findOne({username:username});
   if (!user){
-    return res.status(401).json({message: 'Invalid user or password'});
+    return res.status(401).json({message: 'Invalid id or password'});
   }
   // 들어온 패스워드값을 해싱해 DB에 있는 유저의 패스워드 정보와 대조
   const isValidPassword = await bcrypt.compare(password, user.password);
   if (!isValidPassword) {
-    return res.status(401).json({message: 'Invalid user or password'});
+    return res.status(401).json({message: 'Invalid id or password'});
   }
 
   // 모든 단계를 통과하고 나면 user의 _id를 통해 토큰을 발급
@@ -73,7 +75,7 @@ export async function getInfo(req, res){
 export async function getProfileImage(req, res){
   const user = await User.findOne({_id: req.decoded._id});
   if (!user){
-    return res.status(404).json({message: 'User not found!'});
+    return res.status(404).json({message: 'User not found'});
   }
 
   return await res.status(200).sendFile(__dirname + `/uploads/${user.img}`);

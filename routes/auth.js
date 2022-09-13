@@ -36,7 +36,7 @@ router.get('/login', (req, res, next)=>{
 })
 router.post('/login', authController.login);
 
-router.get('/me', isAuth, authController.getInfo);
+router.get('/get_member', isAuth, authController.getInfo);
 
 router.get('/myImage', isAuth, authController.getProfileImage);
 
