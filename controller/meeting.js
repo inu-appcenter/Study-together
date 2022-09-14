@@ -1,6 +1,6 @@
 import Meeting from '../models/Meeting.js';
 
-export async function getMeetingList(req, res){
+export const getMeetingList = async function (req, res){
   const interest = req.body.interest;
 
   const meetingList = await Meeting.find({interest: interest});
@@ -11,7 +11,7 @@ export async function getMeetingList(req, res){
   return res.status(200).json({meetingList: meetingList});
 }
 
-export async function createMeeting(req, res){
+export const createMeeting = async function (req, res){
   const find = await Meeting.findOne({title: req.body.title});
 
   if (find){
@@ -35,7 +35,7 @@ export async function createMeeting(req, res){
   res.status(201).json({message: 'Successfully created!', meeting: newMeeting});
 }
 
-export async function joinMeeting(req, res){
+export const joinMeeting = async function (req, res){
   const findMeeting = await Meeting.findOne({title: req.body.title});
 
   if (!findMeeting){
