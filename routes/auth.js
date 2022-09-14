@@ -34,11 +34,11 @@ router.post('/signup', upload.single('uploadFile'), authController.signup);
 router.get('/login', (req, res, next)=>{
   res.status(200).sendFile(__dirname + '/templates/loginPage.html');
 })
-router.post('/login', authController.login);
+router.post('/login', authController.general_login);
 
-router.get('/get_member', isAuth, authController.getInfo);
+router.get('/get_member', isAuth, authController.getUserInfo);
 
-router.get('/myImage', isAuth, authController.getProfileImage);
+router.get('/myImage', isAuth, authController.getUserProfileImage);
 
 // 필요한 것, 유저 정보 수정 by using patch method!
 

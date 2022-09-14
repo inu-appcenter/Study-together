@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
-const meetingSchema = new mongoose.Schema({
+const groupSchema = new mongoose.Schema({
   title: {
     unique: true,
     type: String,
@@ -13,5 +13,5 @@ const meetingSchema = new mongoose.Schema({
   member: [{type: Schema.Types.ObjectId, ref: 'User'}]
 });
 
-const Meeting = mongoose.model('Meeting', meetingSchema);
-export default Meeting;
+const Group = mongoose.model('Group', groupSchema);
+export default Group;

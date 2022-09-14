@@ -42,7 +42,7 @@ export const signup = async function (req, res){
   res.status(201).redirect('/');
 }
 
-export const login = async function (req, res){
+export const general_login = async function (req, res){
   console.log(req.body);
   const {username, password} = req.body;
   // 유저의 아이디가 존재할 경우 추출해내는 구문
@@ -62,7 +62,7 @@ export const login = async function (req, res){
   res.status(200).json({token, user});
 }
 
-export const getInfo = async function (req, res){
+export const getUserInfo = async function (req, res){
   // 미들웨어를 통해 들어온 req.decoded를 이용해 유저의 정보를 추출해낼 수 있다.
   const user = await User.findOne({_id: req.decoded._id}); 
   if (!user){
@@ -72,7 +72,7 @@ export const getInfo = async function (req, res){
   res.status(200).json({token: req.token, user: user});
 }
 
-export const getProfileImage = async function (req, res){
+export const getUserProfileImage = async function (req, res){
   const user = await User.findOne({_id: req.decoded._id});
   if (!user){
     return res.status(404).json({message: 'User not found'});
