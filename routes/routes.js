@@ -36,11 +36,11 @@ router.post('/naver_OAuth/get_member', naver_OAuth.get_member)
 router.post('/naver_OAuth/refresh_access_token', naver_OAuth.refresh_access_token)
 router.post('/sign_up', upload.single('img'), controller.sign_up)
 
-
-router.get('/test', (req, res)=>{ // 테스트용
+// 테스트 용
+router.get('/test', (req, res)=>{
   res.sendFile(path.join(__dirname, '../client/test.html'))
 })
-router.get('/*', function(req, res) { // 테스트용
+router.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, '../client/index.html'))
 })
 

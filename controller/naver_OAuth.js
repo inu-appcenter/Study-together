@@ -1,17 +1,18 @@
 import path from 'path'
 import {fileURLToPath} from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+const env=require('../env/naver_OAuth.json')
 import request from 'request'
 import User from '../models/User.js'
 
-const client_id = 'hSAxIZYqNtrSumDgyWQD';
-const client_secret = 'JSau1N85kI';
+
 const state = "RAMDOM_STATE";
 
 export const login = async (req, res) => { // 네이버로 login
   const redirect_URL ="http://localhost:4000/naver/OAuth/callback";
-  const login_URL = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=' + client_id + '&redirect_uri=' + redirect_URL + '&state=' + state;
+  const login_URL = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=' + env.client_id + '&redirect_uri=' + redirect_URL + '&state=' + state;
   res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
   res.end(login_URL)
 }
@@ -19,10 +20,10 @@ export const login = async (req, res) => { // 네이버로 login
 export const callback = async (req, res) => { // 네이버 로그인 완료시 callback
   const code = req.query.code;
   const api_url = 'https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id='
-   + client_id + '&client_secret=' + client_secret + '&code=' + code + '&state=' + state;
+   + env.client_id + '&client_secret=' + env.client_secret + '&code=' + code + '&state=' + state;
   const options = {
       url: api_url,
-      headers: {'X-Naver-Client-Id': client_id, 'X-Naver-Client-Secret': client_secret}
+      headers: {'X-Naver-Client-Id': env.client_id, 'X-Naver-Client-Secret': env.client_secret}
   }
   request.get(options, (error, response, body)=>{
     if (!error && response.statusCode == 200) {
